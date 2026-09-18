@@ -1,0 +1,152 @@
+spawn-at-startup "noctalia"
+
+window-rule {
+  // Rounded corners for a modern look.
+  geometry-corner-radius 5
+
+  // Clips window contents to the rounded corner boundaries.
+  clip-to-geometry true
+
+}
+
+layout {
+  gaps 10
+
+  focus-ring {
+    off
+    width 1
+    active-color "#000000"
+  }
+  
+  border {
+    off
+  }
+  
+  shadow {
+    off
+  }
+  
+}
+
+// Floating Noctalia settings window.
+window-rule {
+  match app-id="dev.noctalia.Noctalia"
+  open-floating true
+  default-column-width { fixed 1080; }
+  default-window-height { fixed 920; }
+}
+
+debug {
+  // Allows notification actions and window activation from Noctalia.
+  honor-xdg-activation-with-invalid-serial
+}
+
+binds {
+    // Core Noctalia binds
+    Mod+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+    //    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+    Alt+Tab { spawn-sh "noctalia msg window-switcher"; }
+    // Niri has a built-in window switcher you might want to try it to see which one you prefer.
+
+    // Audio & Brightness
+    XF86AudioRaiseVolume { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute { spawn-sh "noctalia msg volume-mute"; }
+    XF86MonBrightnessUp { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown { spawn-sh "noctalia msg brightness-down"; }
+
+
+    Mod+Return     { spawn "ghostty"; }
+    Print          { screenshot show-pointer=false; } // Fn+F6
+    Mod+E          { spawn-sh "env GTK_THEME=Adwaita:dark emacs"; }
+
+    Mod+O repeat=false { toggle-overview; }
+    Mod+Q repeat=false { close-window; }
+
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-or-workspace-down; }
+    Mod+K     { focus-window-or-workspace-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Alt+H     { move-column-left; }
+    Mod+Alt+J     { move-window-down-or-to-workspace-down; }
+    Mod+Alt+K     { move-window-up-or-to-workspace-up; }
+    Mod+Alt+L     { move-column-right; }
+
+    Mod+Left       { focus-column-first; }
+    Mod+Right      { focus-column-last; }
+    Mod+Alt+Left   { move-column-to-first; }
+    Mod+Alt+Right  { move-column-to-last; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+Alt+1 { move-column-to-workspace 1; }
+    Mod+Alt+2 { move-column-to-workspace 2; }
+    Mod+Alt+3 { move-column-to-workspace 3; }
+    Mod+Alt+4 { move-column-to-workspace 4; }
+    Mod+Alt+5 { move-column-to-workspace 5; }
+    Mod+Alt+6 { move-column-to-workspace 6; }
+    Mod+Alt+7 { move-column-to-workspace 7; }
+    Mod+Alt+8 { move-column-to-workspace 8; }
+    Mod+Alt+9 { move-column-to-workspace 9; }
+
+    Mod+Comma  { consume-or-expel-window-left; }
+    Mod+Period { consume-or-expel-window-right; }
+
+    Mod+R         { switch-preset-column-width; }
+    Mod+M         { maximize-column; } // Mapped to SUPER_L in keyd
+    Mod+Alt+M     { expand-column-to-available-width; }
+    Mod+F         { fullscreen-window; }
+    Mod+C         { center-column; }
+    Mod+Alt+C     { center-visible-columns; }
+    Mod+Minus     { set-column-width "-10%"; }
+    Mod+Equal     { set-column-width "+10%"; }
+    Mod+Alt+Minus { set-window-height "-10%"; }
+    Mod+Alt+Equal { set-window-height "+10%"; }
+    Mod+T         { toggle-window-floating; }
+    Mod+Alt+T     { switch-focus-between-floating-and-tiling; }
+    Mod+W         { toggle-column-tabbed-display; }
+
+    Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+}
+
+layer-rule {
+  match namespace="^noctalia-backdrop"
+  place-within-backdrop true
+}
+
+/* Apps: blur them all without xray so it looks more realistic. */
+window-rule {
+  background-effect {
+    blur true
+    xray false
+  }
+}
+
+/*
+  Noctalia
+  Disable xray on all our surfaces so it looks more realistic.
+  Noctalia publishes blur regions automatically when ext-background-effects is available.
+*/
+layer-rule {
+  match namespace="^noctalia-(bar-[^\"]+|notification|dock|panel|attached-panel|osd)$"
+  background-effect {
+    xray false
+    // blur false
+  }
+}
+
+output "HDMI-A-1" {
+  mode "3840x2560@119.991"
+  scale 1.25
+  variable-refresh-rate
+}
