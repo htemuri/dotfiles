@@ -1,3 +1,4 @@
+
 ;; ===================================
 ;; MELPA Package Support
 ;; ===================================
@@ -42,9 +43,9 @@
 (setq split-width-threshold most-positive-fixnum)
 (setq-default inhibit-splash-screen t
               make-backup-files nil
-	      warning-minimum-log-level 1
-	      indent-tabs-mode nil
-	      tab-width 4
+	          warning-minimum-log-level 1
+	          indent-tabs-mode nil
+	          tab-width 4
               )
 
 ;; Save auxilary files in the /tmp/ directory instead of current directory
@@ -55,6 +56,9 @@
 
 ;; (require 'python-mode)
 (require 'go-mode)
+(require 'multiple-cursors)
+
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 
 (setq frame-title-format "%b")
 
@@ -71,8 +75,8 @@
    '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
      default))
  '(display-line-numbers-type 'relative)
- '(package-selected-packages '(evil go-mode gruber-darker-theme magit))
- '(warning-minimum-log-level :error t))
+ '(package-selected-packages '(evil go-mode gruber-darker-theme magit multiple-cursors))
+ '(warning-minimum-log-level :error))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
