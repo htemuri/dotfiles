@@ -22,6 +22,8 @@
     multiple-cursors
     magit
     markdown-mode
+    terraform-mode
+    format-all
     )
   )
 
@@ -37,3 +39,5 @@
 (require 'magit)
 (require 'multiple-cursors)
 (require 'markdown-mode)
+(require 'terraform-mode)
+(require 'format-all)

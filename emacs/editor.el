@@ -24,3 +24,15 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
+
+;; Format settings
+;; Use `terraform fmt` for Terraform buffers.
+(add-hook 'terraform-mode-hook
+          (lambda ()
+            (setq-local format-all-formatters
+                        '(("Terraform" terraform-fmt)))))
+
+;; Format Terraform files automatically when saved.
+(add-hook 'terraform-mode-hook #'format-all-mode)
+(add-hook 'prog-mode-hook #'format-all-mode)
+
