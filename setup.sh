@@ -14,22 +14,27 @@ esac
 
 # setup emacs
 if [ "$ENABLE_EMACS" -eq 1 ] ; then
+    
+    backup_suffix=$(date +%Y%m%d-%H%M%S)
+    
     # backup old config
     if [ -e "$HOME/.emacs" ]; then
-        mv -- "$HOME/.emacs" "$HOME/.emacs.bak"
+        mv -- "$HOME/.emacs" "$HOME/.emacs.bak-$backup_suffix"
     fi
     if [ -e "$HOME/.emacs.d" ]; then
-        mv -- "$HOME/.emacs.d" "$HOME/.emacs.d.bak"
-    else
-        mkdir "$HOME/.emacs.d"
-    fi 
+        mv -- "$HOME/.emacs.d" "$HOME/.emacs.d.bak-$backup_suffix"
+    fi
+    
+    mkdir "$HOME/.emacs.d"
+     
     for file in "$PWD"/emacs/*; do
         [ -f "$file" ] || continue # keeps only files
-        [[ "${file##*/}" == "emacs.service"
-                || "${file##*/}" == "emacs.desktop"
-         ]] && continue # skips unwanted files
-        [ -e "$HOME/.emacs.d/${file##*/}" ] && continue # skip already linked files
-        ln -s "$file" "$HOME/.emacs.d/"
+
+        case "${file##*/}" in
+            emacs.service|emacs.desktop) continue ;;
+        esac # skips unwanted files
+        
+        ln -s -- "$file" "$HOME/.emacs.d/"
     done
     echo "Successfully setup Emacs!"
 fi
