@@ -1,5 +1,6 @@
-;; auto custom values
-(load (expand-file-name "custom.el" user-emacs-directory) 'noerror)
+;; custom variable setup
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
 
 ;; packages install and load
 (load (expand-file-name "package.el" user-emacs-directory))

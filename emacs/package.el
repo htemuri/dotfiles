@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; ===================================
 ;; MELPA Package Support
 ;; ===================================
@@ -24,6 +26,8 @@
     markdown-mode
     terraform-mode
     format-all
+    smex
+    gruber-darker-ayu-theme
     )
   )
 
@@ -41,3 +45,5 @@
 (require 'markdown-mode)
 (require 'terraform-mode)
 (require 'format-all)
+(require 'smex)
+(require 'gruber-darker-ayu-theme)
