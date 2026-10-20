@@ -48,3 +48,7 @@
 (global-set-key (kbd "C-c C-<")     'mc/mark-all-like-this)
 (global-set-key (kbd "C-\"")        'mc/skip-to-next-like-this)
 (global-set-key (kbd "C-:")         'mc/skip-to-previous-like-this)
+
+;; Fix wslg clipboard issue
+;; Found fix here: https://www.lukas-barth.net/blog/emacs-wsl-copy-clipboard/
+(setq select-active-regions nil)
