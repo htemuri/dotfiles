@@ -52,3 +52,9 @@
 ;; Fix wslg clipboard issue
 ;; Found fix here: https://www.lukas-barth.net/blog/emacs-wsl-copy-clipboard/
 (setq select-active-regions nil)
+
+;; org
+(global-set-key (kbd "C-c l") #'org-store-link)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
+(add-hook 'org-mode-hook #'turn-on-font-lock)
