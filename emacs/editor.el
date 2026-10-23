@@ -58,3 +58,15 @@
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
 (add-hook 'org-mode-hook #'turn-on-font-lock)
+
+;; ansi colors compilation mode
+; Source - https://stackoverflow.com/a/20788581
+; Posted by gavenkoa
+; Retrieved 2026-10-23, License - CC BY-SA 3.0
+
+(ignore-errors
+  (require 'ansi-color)
+  (defun my-colorize-compilation-buffer ()
+    (when (eq major-mode 'compilation-mode)
+      (ansi-color-apply-on-region compilation-filter-start (point-max))))
+  (add-hook 'compilation-filter-hook 'my-colorize-compilation-buffer))
